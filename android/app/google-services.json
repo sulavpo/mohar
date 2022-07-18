@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "568072516419",
+    "firebase_url": "https://mohar-dae91-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "mohar-dae91",
+    "storage_bucket": "mohar-dae91.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:568072516419:android:1b23053aee2720bdb0f5f6",
+        "android_client_info": {
+          "package_name": "com.example.mohar_version"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "568072516419-u947pmi51vb9rcn40cvg9mb6s4r7jank.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mohar_version",
+            "certificate_hash": "f042cce63eed7eecf6ad033a9f95ee22f4fb1678"
+          }
+        },
+        {
+          "client_id": "568072516419-ons1c31dvp4lesebsu7b2rai4h11l03c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkOTtD6a87anVWX5nmwaxE9zGG65Ft7Kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "568072516419-ons1c31dvp4lesebsu7b2rai4h11l03c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
