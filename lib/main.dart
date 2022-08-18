@@ -1,11 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mohar_version/bloc/app_bloc.dart';
+import 'package:mohar_version/bloc/theme/theme_bloc.dart';
 import 'package:mohar_version/pages/home_page.dart';
 import 'package:mohar_version/pages/login_page.dart';
 import 'package:mohar_version/route.dart';
+import 'package:mohar_version/theme/dark_theme.dart';
+import 'package:mohar_version/theme/lightthem.dart';
 
 void main() async {
   // it initalize the native code
@@ -20,15 +24,31 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth _auth = FirebaseAuth.instance;
-    String? cid = _auth.currentUser?.uid;
-    return BlocProvider(
-        create: (context) => AppBloc()..add(InitialEvent()),
-        child: const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: RouteHandler.generateRoute,
-          home: InitPage(),
-        ));
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AppBloc()..add(InitialEvent()),
+        ),
+        BlocProvider(create: (context) => ThemeBloc()..add(ThemeInitEvent()))
+      ],
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            builder: (context, child) {
+              return MaterialApp(
+                theme: state.isDark ? darkTheme : lightTheme,
+                debugShowCheckedModeBanner: false,
+                onGenerateRoute: RouteHandler.generateRoute,
+                home: InitPage(),
+              );
+            },
+          );
+        },
+      ),
+    );
   }
 }
 

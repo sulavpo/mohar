@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mohar_version/Constants/image.dart';
 import 'package:mohar_version/bloc/app_bloc.dart';
@@ -46,7 +47,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: SafeArea(
           child: BlocListener<AppBloc, AppState>(
         listener: (context, state) {
@@ -61,7 +62,7 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, right: 20, top: 25),
+                         EdgeInsets.only(left: 20.w, right: 20.w, top: 25.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -71,69 +72,79 @@ class _SignupPageState extends State<SignupPage> {
                                 Navigator.pop(context);
                               });
                             },
-                            child: const Icon(
+                            child:  Icon(
                               Icons.arrow_back,
-                              color: Colors.black,
+                              color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,
                             )),
-                        const Text(
+                         Text(
                           '1/3',
                           style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                              fontSize: 15.sp, fontWeight: FontWeight.bold),
                         )
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 30, 0, 0),
+                    padding:  EdgeInsets.fromLTRB(10.w, 30.h, 0.w, 0.h),
                     child: SvgPicture.asset(AppImages.register,
-                        height: 120, width: 120),
+                        height: 120.h, width: 120.w),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20),
+                   Padding(
+                    padding: EdgeInsets.only(top: 20.h),
                     child: Text("Register to Get Cash",
                         style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold)),
+                            fontSize: 25.sp, fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().formField(
                         label: "Email",
-                        icon: const Icon(Icons.alternate_email_sharp,
-                            color: Colors.black),
+                        icon:  Icon(Icons.alternate_email_sharp,
+                            color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,),
                         type: emailText),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().formField(
                         label: "Fullname",
-                        icon: const Icon(
+                        icon:  Icon(
                           Icons.account_circle,
-                          color: Colors.black,
+                          color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,
                         ),
                         type: fullname),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().formField(
                         label: "Phone Number",
-                        icon: const Icon(Icons.phone, color: Colors.black),
+                        icon:  Icon(Icons.phone, color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,),
                         type: phone),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().formField(
                         label: "Address",
                         icon:
-                            const Icon(Icons.home_filled, color: Colors.black),
+                           Icon(Icons.home_filled, color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,),
                         type: address),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().passwordField(
                         obscure: hidePassword,
                         password: IconButton(
@@ -146,12 +157,14 @@ class _SignupPageState extends State<SignupPage> {
                                 ? Icons.visibility_off
                                 : Icons.visibility)),
                         label: "Password",
-                        icon: const Icon(Icons.key, color: Colors.black),
+                        icon:  Icon(Icons.key, color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,),
                         type: passwordText),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 18, right: 18, top: 15),
+                         EdgeInsets.only(left: 18.w, right: 18.w, top: 15.h),
                     child: TextForm().passwordField(
                         obscure: hidePassword1,
                         password: IconButton(
@@ -164,18 +177,20 @@ class _SignupPageState extends State<SignupPage> {
                                 ? Icons.visibility_off
                                 : Icons.visibility)),
                         label: "Confirm Password",
-                        icon: const Icon(Icons.key, color: Colors.black),
+                        icon: Icon(Icons.key, color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.black
+                    : Colors.white,),
                         type: confirmPassword),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+                    padding:  EdgeInsets.fromLTRB(40.w, 20.h, 40.w, 0.h),
                     child: ElevatedButton(
                         style: ButtonStyle(
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(10)),
+                                 EdgeInsets.all(10.sp)),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10.r)),
                             ),
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromARGB(255, 87, 151, 203))),
@@ -193,16 +208,16 @@ class _SignupPageState extends State<SignupPage> {
                           }
                         }),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 110),
+                          padding:  EdgeInsets.only(left: 110.w),
                           child: Row(
-                            children: const [
+                            children:  [
                               Text(
                                 'Next',
-                                style: TextStyle(fontSize: 15),
+                                style: TextStyle(fontSize: 15.sp),
                               ),
                               Icon(
                                 Icons.arrow_forward,
-                                size: 15,
+                                size: 15.sp,
                               )
                             ],
                           ),
@@ -210,12 +225,12 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 90.0, top: 5, bottom: 5),
+                         EdgeInsets.only(left: 90.0.w, top: 5.h, bottom: 5.h),
                     child: Row(
                       children: [
-                        const Text(
+                         Text(
                           'Joined us before?',
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15.sp),
                         ),
                         InkWell(
                           onTap: () {
@@ -223,9 +238,9 @@ class _SignupPageState extends State<SignupPage> {
                               Navigator.pushNamed(context, LoginPage.routeName);
                             });
                           },
-                          child: const Text(
+                          child:  Text(
                             'Login',
-                            style: TextStyle(color: Colors.blue, fontSize: 15),
+                            style: TextStyle(color: Colors.blue, fontSize: 15.sp),
                           ),
                         )
                       ],

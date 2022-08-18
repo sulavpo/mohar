@@ -23,8 +23,19 @@ class AppImages {
   static const String avatar3 = "assets/img/avatar3.svg";
   static const String avatar4 = "assets/img/avatar4.svg";
   static const String avatar5 = "assets/img/avatar5.svg";
-   static const String statement = "assets/img/statement.svg";
-    static const String withdraw = "assets/img/withdraw.svg";
-     static const String more = "assets/img/dot.svg";
-
+  static const String statement = "assets/img/statement.svg";
+  static const String withdraw = "assets/img/withdraw.svg";
+  static const String more = "assets/img/more.svg";
+  static const String medal = "assets/img/badge.png";
+  static const String design = "assets/img/design.svg";
+  static const String wheat = "assets/img/design.png";
+  static const String light = "assets/img/light.svg";
+  static const String dark = "assets/img/dark.svg";
+  static const String share = "assets/img/share.svg";
+  static const String logout = "assets/img/logout.svg";
+  static const String info = "assets/img/info.svg";
+  static const String fq = "assets/img/faqs.svg";
+  static const String password = "assets/img/password.svg";
+  static const String rupee_dark = "assets/img/rupee_dark.svg";
+  static const String gold_medal = "assets/img/medal.svg";
 }

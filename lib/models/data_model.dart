@@ -13,11 +13,25 @@ class Data {
   final String back;
   final String password;
   final String profile;
-   String? uid;
+  double points = 0;
+  double balance = 0;
+  String? uid;
 
   static var empty;
-  Data(this.fullname, this.address, this.email, this.phone, this.gender,
-      this.dctype, this.front, this.back, this.password, this.profile,this.uid);
+  Data(
+      this.fullname,
+      this.address,
+      this.email,
+      this.phone,
+      this.gender,
+      this.dctype,
+      this.front,
+      this.back,
+      this.password,
+      this.profile,
+      this.uid,
+      this.points,
+      this.balance);
   Map<String, dynamic> toMap() {
     return {
       'name': fullname,
@@ -30,11 +44,13 @@ class Data {
       'back': back,
       'password': password,
       'profile': profile,
-      'uid':uid
+      'uid': uid,
+      'points': points,
+      'balance': balance
     };
   }
 
-  factory Data.fromJson(Map<String, dynamic> parsedJson) {
+  factory Data.fromJson(parsedJson) {
     return Data(
       parsedJson['name'].toString(),
       FullAddress.fromMap(parsedJson['address']),
@@ -47,7 +63,8 @@ class Data {
       parsedJson['password'].toString(),
       parsedJson['profile'].toString(),
       parsedJson['uid'].toString(),
-
+      parsedJson['points'].toDouble(),
+      parsedJson['balance'].toDouble(),
     );
   }
   Data.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
@@ -61,8 +78,9 @@ class Data {
         back = doc.data()!["back"],
         password = doc.data()!["password"],
         profile = doc.data()!["profile"],
-        uid = doc.data()!["uid"];
-
+        uid = doc.data()!["uid"],
+        points = doc.data()!["points"],
+        balance = doc.data()!["balance"];
 
   Data.fromDatabaseEvent(DatabaseEvent db)
       : fullname = db.snapshot.child('name').value.toString(),
@@ -76,6 +94,9 @@ class Data {
         back = db.snapshot.child('back').value.toString(),
         password = db.snapshot.child('password').value.toString(),
         profile = db.snapshot.child('profile').value.toString(),
-        uid = db.snapshot.child('profile').value.toString();
-
+        uid = db.snapshot.child('profile').value.toString(),
+        //first the retrive data goes into string and then tries to parse/convert the number string to integer
+        points =
+            double.parse((db.snapshot.child('points').value ?? 0).toString()),
+        balance = double.parse((db.snapshot.child('balance').value ?? 0).toString());
 }

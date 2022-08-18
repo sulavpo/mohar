@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 
 class FullAddress {
@@ -15,7 +14,7 @@ class FullAddress {
     };
   }
 
-  FullAddress.fromMap(Map<String, dynamic> addressMap)
+  FullAddress.fromMap(addressMap)
       : city = addressMap["city"],
         district = addressMap["district"],
         provision = addressMap["provision"];

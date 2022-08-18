@@ -1,23 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mohar_version/Constants/image.dart';
 import 'package:mohar_version/animation/home_animation.dart';
 import 'package:mohar_version/bloc/app_bloc.dart';
-import 'package:mohar_version/custom/row.dart';
+import 'package:mohar_version/bloc/theme/theme_bloc.dart';
+import 'package:mohar_version/custom/dialouge.dart';
+import 'package:mohar_version/custom/update_dialouge.dart';
 import 'package:mohar_version/models/data_model.dart';
-import 'package:mohar_version/pages/home_page.dart';
 import 'package:mohar_version/pages/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Data? receivedData;
-  ProfileScreen(
-      {Key? key, required AnimationController controller, this.receivedData})
-      : animation = HomePageEnterAnimation(controller),
-        super(key: key);
-  final HomePageEnterAnimation animation;
+  const ProfileScreen({Key? key, this.receivedData}) : super(key: key);
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -26,179 +24,426 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
+  Future<void> savedata(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("switch", value);
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: AnimatedBuilder(
-          animation: widget.animation.controller,
-          builder: (context, child) => _buildAnimation(context, child, size),
-        ),
-      ),
-    );
-  }
+    return BlocListener<AppBloc, AppState>(
+      listener: (context, state) {
+        if (state is MoharNotLoggedinState) {
+          Navigator.pushReplacementNamed(context, LoginPage.routeName);
+        }
+      },
+      child: Scaffold(
+        // backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+            child: SafeArea(
+                child: Column(
+          children: [
+            AppBar(
+              elevation: 0,
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Color.fromARGB(255, 23, 23, 23)
+                  : Colors.white,
+              title: Text(
+                "Profile",
+                style: TextStyle(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10.0.h),
+                  child: Stack(
+                    children: [
+                      Row(
+                        children: [
+                          BlocBuilder<ThemeBloc, ThemeState>(
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  BlocProvider.of<ThemeBloc>(context).add(
+                                      ThemeChangeEvent(value: !state.isDark));
+                                },
+                                child: Icon(
+                                  Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Icons.sunny
+                                      : Icons.nightlight,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  size: 25,
+                                ),
+                              );
+                            },
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsets.fromLTRB(15.0.w, 8.0.h, 35.w, 8.0.h),
+                            child: FaIcon(
+                              FontAwesomeIcons.bell,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              size: 25,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                          right: 26.w,
+                          top: 6.h,
+                          child: Container(
+                            height: 16.h,
+                            width: 16.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.black
+                                  : Color.fromARGB(255, 246, 243, 243),
 
-  Widget _buildAnimation(BuildContext context, Widget? child, Size size) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          Column(children: <Widget>[
-            topBar(widget.animation.barHeight.value),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 23),
-                  Opacity(
-                      opacity: widget.animation.tittleOpacity.value,
-                      child: placeholderBox(28, 150, Alignment.centerLeft)),
-                  SizedBox(
-                    height: 8,
+                              //Color.fromARGB(255, 246, 243, 243)
+                            ),
+                          )),
+                      Positioned(
+                          right: 25.5.w,
+                          top: 6.1.h,
+                          child: Container(
+                            child: Center(
+                                child: Text(
+                              "1",
+                              style: TextStyle(
+                                  fontSize: 10.sp,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                            height: 15.h,
+                            width: 15.w,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.red
+                                    : Colors.red.withOpacity(0.5)),
+                          )),
+                    ],
                   ),
-                  Opacity(
-                      opacity: widget.animation.textOpacity.value,
-                      child: placeholderBox2(
-                          350, double.infinity, Alignment.centerLeft)),
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10.w, 10.h, 150.w, 0.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 100.h,
+                    width: 100.w,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          widget.receivedData!.profile,
+                          fit: BoxFit.fill,
+                          width: 100.w,
+                          height: 100.h,
+                        )),
+                    decoration: const BoxDecoration(
+                        color: Colors.amber, shape: BoxShape.circle),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w, top: 3.h),
+                        child: Container(
+                          height: 15.h,
+                          width: 65.w,
+                          decoration: BoxDecoration(
+                              color: Colors.blue.withOpacity(0.7),
+                              borderRadius: BorderRadius.circular(2.r)),
+                          child: Center(
+                              child: Text(
+                            "Contributor",
+                            style:
+                                TextStyle(fontSize: 10.sp, color: Colors.white),
+                          )),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w, top: 5.h),
+                        child: Text(
+                          widget.receivedData!.fullname.split(' ').first,
+                          style: TextStyle(
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.0.w, top: 3.h),
+                        child: Text(
+                          "View Profile",
+                          style: TextStyle(
+                              color: Color.fromRGBO(76, 175, 152, 1),
+                              fontWeight: FontWeight.w700),
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 25.0.h),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 90.h,
+                    width: 90.w,
+                    child: Center(
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 30.0.h),
+                            child: Text(
+                              "5k",
+                              style: TextStyle(
+                                  fontSize: 15.sp, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 22.0.h),
+                            child: Text(
+                              "Points",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(158, 158, 158, 1),
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10.r)),
+                  ),
+                  Container(
+                    height: 90.h,
+                    width: 90.w,
+                    child: Center(
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 8.0.h),
+                            child: Image.asset(
+                              AppImages.medal,
+                              width: 90.w,
+                              height: 90.h,
+                            ),
+                          ),
+                          Column(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(top: 30.0.h, left: 28.w),
+                                child: Text(
+                                  "1k",
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(top: 22.0.h, left: 30.w),
+                                child: Text(
+                                  "Rank",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(158, 158, 158, 1),
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10.r)),
+                  ),
+                  Container(
+                    height: 90.h,
+                    width: 90.r,
+                    child: Center(
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 30.0.h),
+                            child: Text(
+                              "2k",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 22.0.h),
+                            child: Text(
+                              "Withdraw",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(158, 158, 158, 1),
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.15),
+                        borderRadius: BorderRadius.circular(10.r)),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            SizedBox(
+              height: 320.h,
+              child: Padding(
+                padding: EdgeInsets.only(left: 15.0.w, right: 15.0.w),
+                child: ListView(
+                  primary: false,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  children: [
+                    ListCard(
+                        title: Text("Basic info"),
+                        trailing: Icon(Icons.chevron_right),
+                        leading: Container(
+                            height: 25.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(
+                                color: Colors.green, shape: BoxShape.circle),
+                            child: SvgPicture.asset(
+                              AppImages.info,
+                              height: 50.h,
+                              width: 50.w,
+                            ))),
+                    InkWell(
+                      onTap: () {
+                        ShowDialouge().showDialouge(
+                            city: "",
+                            district: "",
+                            provision: "",
+                            text: "Change Password",
+                            context: context,
+                            data: widget.receivedData!.password,
+                            type: "password",
+                            text1: "",
+                            text2: "",
+                            text3: "");
+                      },
+                      child: ListCard(
+                          title: Text("Change Password"),
+                          trailing: Icon(Icons.chevron_right),
+                          leading: Container(
+                              height: 25.h,
+                              width: 25.w,
+                              decoration: BoxDecoration(shape: BoxShape.circle),
+                              child: SvgPicture.asset(AppImages.password,
+                                  height: 50.h, width: 50.w))),
+                    ),
+                    ListCard(
+                        title: Theme.of(context).brightness == Brightness.dark
+                            ? Text("Light Theme")
+                            : Text("Dark Theme"),
+                        trailing: BlocBuilder<ThemeBloc, ThemeState>(
+                          builder: (context, state) {
+                            return Switch(
+                                value: state.isDark,
+                                onChanged: (value) {
+                                  print(value);
+                                  BlocProvider.of<ThemeBloc>(context)
+                                      .add(ThemeChangeEvent(value: value));
+                                  savedata(value);
+                                });
+                          },
+                        ),
+                        leading: Container(
+                          height: 25,
+                          width: 25,
+                          decoration: BoxDecoration(shape: BoxShape.circle),
+                          child: Theme.of(context).brightness == Brightness.dark
+                              ? SvgPicture.asset(AppImages.light,
+                                  height: 50.h, width: 50.w)
+                              : SvgPicture.asset(AppImages.dark,
+                                  height: 50.h, width: 50.w),
+
+                          // child: SvgPicture.asset(AppImages.dark,
+                          //     height: 50, width: 50)
+                        )),
+                    ListCard(
+                        title: Text("FAQs"),
+                        trailing: Icon(Icons.chevron_right),
+                        leading: Container(
+                            height: 25.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(shape: BoxShape.circle),
+                            child: SvgPicture.asset(AppImages.fq,
+                                height: 50.h, width: 50.w))),
+                    ListCard(
+                        title: Text("Refer and Earn"),
+                        trailing: Icon(Icons.chevron_right),
+                        leading: Container(
+                            height: 25.h,
+                            width: 25.w,
+                            decoration: BoxDecoration(shape: BoxShape.circle),
+                            child: SvgPicture.asset(AppImages.share,
+                                height: 50, width: 50))),
+                    InkWell(
+                      onTap: () {
+                        // setState(() {
+                        BlocProvider.of<AppBloc>(context).add(LogoutEvent());
+                        // });
+                      },
+                      child: ListCard(
+                          title: Text("Logout"),
+                          leading: Container(
+                              height: 25.h,
+                              width: 25.w,
+                              decoration: BoxDecoration(shape: BoxShape.circle),
+                              child: SvgPicture.asset(AppImages.logout,
+                                  height: 50.h, width: 50.w))),
+                    ),
+                  ],
+                ),
+              ),
             )
-          ]),
-          background(
-            size,
-            widget.animation.avatarSize.value,
-          ),
-          circle(
-            size,
-            widget.animation.avatarSize.value,
-          ),
-        ],
+          ],
+        ))),
       ),
     );
   }
 
-  Padding topBar(double height) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 50),
-      child: Container(
-        height: height,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-      ),
-    );
-  }
-
-  Positioned circle(Size size, double animationValue) {
-    return Positioned(
-        top: 150,
-        left: size.width / 2 - 150,
-        child: Transform(
-          alignment: Alignment.center,
-          transform:
-              Matrix4.diagonal3Values(animationValue, animationValue, 1.0),
-          child: Container(
-            height: 90,
-            width: 90,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  widget.receivedData!.profile,
-                  fit: BoxFit.cover,
-                )),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.blue.shade700),
-          ),
-        ));
-  }
-
-  Positioned background(Size size, double animationValue) {
-    return Positioned(
-        top: 147,
-        left: size.width / 2 - 153,
-        child: Transform(
-          alignment: Alignment.center,
-          transform:
-              Matrix4.diagonal3Values(animationValue, animationValue, 1.0),
-          child: Container(
-            height: 96,
-            width: 95.5,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100), color: Colors.white),
-          ),
-        ));
-  }
-
-  Align placeholderBox(double height, double width, Alignment alignment) {
-    return Align(
-      alignment: alignment,
-      child: Container(
-        child: Center(
-            child: Text(
-          widget.receivedData!.fullname,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        )),
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.grey.shade300),
-      ),
-    );
-  }
-
-  Align placeholderBox2(double height, double width, Alignment alignment) {
-    return Align(
-      alignment: alignment,
-      child: Container(
-        child: ListView(
-                                      children: [
-                                        CustomRow().customRow(
-                                            data: widget.receivedData!.fullname,
-                                            label: 'Name:\t',
-                                            context: context,
-                                            type: 'name'),
-                                        CustomRow().customRow(
-                                            data: widget.receivedData!.email,
-                                            label: 'Mother Name:\t',
-                                            context: context,
-                                            type: 'mother'),
-                                        CustomRow().customRow(
-                                            data: widget.receivedData!.gender,
-                                            label: 'Father Name:\t',
-                                            context: context,
-                                            type: 'father'),
-                                        CustomRow().customRow(
-                                            data: widget.receivedData!.password,
-                                            label: 'Password:\t',
-                                            context: context,
-                                            type: 'password'),
-                                        CustomRow().customRow(
-                                            data: widget.receivedData!.phone,
-                                            label: 'Phone:\t',
-                                            context: context,
-                                            type: 'phone'),
-                                        CustomRow().customAddress(
-                                            city: widget.receivedData!.address.city,
-                                            context: context,
-                                            type: 'address',
-                                            district:
-                                                widget.receivedData!.address.district,
-                                            provision:
-                                                widget.receivedData!.address.provision)
-                                      ],
-                                    ),
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.grey.shade300),
-      ),
-    );
-  }
+  Card ListCard({required leading, required title, trailing}) => Card(
+      elevation: 0.8,
+      // color: Color.fromARGB(246, 254, 253, 253),
+      child: ListTile(
+        leading: leading,
+        title: title,
+        trailing: trailing,
+      ));
 }

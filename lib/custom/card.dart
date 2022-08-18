@@ -1,65 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mohar_version/Constants/image.dart';
 
 class CardForm {
-  Widget cardField({
-    required String coin,
-    required String rank,
-    required String name,
-    required String avatar
-  }) {
+  Widget cardField(
+      {required double coin,
+      required String rank,
+      required String name,
+      required String avatar}) {
     return Card(
       // padding: const EdgeInsets.all(8.0),
       elevation: 2.5,
-      margin: EdgeInsets.all(8),
+      margin:  EdgeInsets.all(8.sp),
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding:  EdgeInsets.all(18.0.sp),
         child: Row(
           children: [
-            Container(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(70),
-                  child: SvgPicture.asset(
-                    avatar,
-                    fit: BoxFit.fill,
-                  )),
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(70),
-                  color: Colors.red.withOpacity(0.2)),
+            CircleAvatar(
+              foregroundImage: Image.network(avatar).image,
+              radius: 18.r,
             ),
-            SizedBox(width: 50,),
+             SizedBox(
+              width: 50.w,
+            ),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Text(rank,style: TextStyle(fontSize: 10),),
-                    SizedBox(height: 5,),
-                   Text(
-                     name,
-                     style: TextStyle(
-                         fontWeight: FontWeight.bold, fontSize: 15),
-                   ),
-                   SizedBox(height: 5,),
+                   SizedBox(
+                    height: 5.h,
+                  ),
+                  Text(
+                    name,
+                    style:  TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 15.sp),
+                  ),
+                   SizedBox(
+                    height: 5.h,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset(
                         AppImages.coin,
-                        width: 10,
-                        height: 10,
+                        width: 20.w,
+                        height: 20.h,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(coin),
+                        padding:  EdgeInsets.only(left: 8.0.w),
+                        child: Text(coin.toString()),
                       )
                     ],
                   ),
                 ],
               ),
+            ),
+            Stack(
+              children: [
+                SvgPicture.asset(AppImages.gold_medal,width: 70.w,height: 70.h,),
+                Positioned(
+                  bottom: 35.h,
+                  left: 29.w,
+                  child: Text(
+                      rank,
+                      style:  TextStyle(fontSize: 15.sp,fontWeight: FontWeight.bold),
+                    ),
+                ),
+              ],
             )
           ],
         ),

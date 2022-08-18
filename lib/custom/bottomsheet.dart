@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mohar_version/Constants/image.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:mohar_version/custom/card.dart';
+import 'package:mohar_version/models/data_model.dart';
+
 
 class BottomSheets {
-  void bottomsheets(context) {
+  
+  void bottomsheets(context, List<Data> userDataList) {
     showModalBottomSheet(
         constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height -
@@ -15,100 +19,69 @@ class BottomSheets {
         backgroundColor: Colors.transparent,
         context: context,
         builder: (context) => Padding(
-              padding: const EdgeInsets.fromLTRB(3.0, 0, 3.0, 0),
+              padding:  EdgeInsets.fromLTRB(3.0.w, 0.h, 3.0.w, 0.h),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
                 child: Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Padding(
-                      padding: const EdgeInsets.only(
-                          left: 150.0, right: 150, top: 12),
-                      child: Container(
-                        height: 6,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 216, 217, 219),
-                            borderRadius: BorderRadius.circular(20)),
-                      ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding:  EdgeInsets.only(
+                              left: 150.0.w, right: 150.w, top: 5.h),
+                          child: Container(
+                            height: 6.h,
+                            decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 216, 217, 219),
+                                borderRadius: BorderRadius.circular(20.r)),
+                          ),
+                        ),
+                         Padding(
+                          padding: EdgeInsets.only(right: 150.0.w, top: 30.h),
+                          child: Text(
+                            "Highest Contributor",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17.sp),
+                          ),
+                        ),
+                        Container(
+                            margin:  EdgeInsets.all(8.0.sp),
+                            height: 500.h,
+                            child: AnimationLimiter(
+                  
+                              child: ListView.builder(
+                                  itemCount: userDataList.length,
+                                  itemBuilder: (context, index) {
+                                    return AnimationConfiguration.staggeredList(
+                                      position: index,
+                                      duration: const Duration(milliseconds: 475),
+                                      child: SlideAnimation(
+                                        verticalOffset: 50.0,
+                                        child:FadeInAnimation(
+                                          child: CardForm().cardField(
+                                              coin: userDataList[index].points,
+                                              rank: "${index + 1}",
+                                              name: userDataList[index].fullname,
+                                              avatar: userDataList[index].profile),
+                                        ),
+                                      ),
+                                    );
+                                  })
+                  ,
+                            )),
+                      ],
                     ),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 150.0, top: 30),
-                        child: Text(
-                          "Highest Contributor",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(8.0),
-                        height: 500,
-                        child: ListView(
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          children: [
-                            CardForm().cardField(
-                                coin: "5000",
-                                rank: "1st Rank",
-                                name: "Suraj Pandey",
-                                avatar: AppImages.avatar1),
-                            CardForm().cardField(
-                                coin: "4090",
-                                rank: "2nd Rank",
-                                name: "Sita Sharma",
-                                avatar: AppImages.avatar4),
-                            CardForm().cardField(
-                                coin: "4002",
-                                rank: "3rd Rank",
-                                name: "Kaji Khadka",
-                                avatar: AppImages.avatar3),
-                            CardForm().cardField(
-                                coin: "3990",
-                                rank: "4th Rank",
-                                name: "Rani Shah ",
-                                avatar: AppImages.avatar5),
-                            CardForm().cardField(
-                                coin: "3560",
-                                rank: "5th Rank",
-                                name: "Ayush Shrestha",
-                                avatar: AppImages.avatar3),
-                            CardForm().cardField(
-                                coin: "3230",
-                                rank: "6th Rank",
-                                name: "Sasen Maharjan",
-                                avatar: AppImages.avatar2),
-                            CardForm().cardField(
-                                coin: "2890",
-                                rank: "7th Rannk",
-                                name: "Laxmi Sigdel",
-                                avatar: AppImages.avatar1),
-                            CardForm().cardField(
-                                coin: "2745",
-                                rank: "8th Rank",
-                                name: "Nirajan khanal",
-                                avatar: AppImages.avatar3),
-                            CardForm().cardField(
-                                coin: "2340",
-                                rank: "9th Rank",
-                                name: "Sumiran khafle",
-                                avatar: AppImages.avatar4),
-                            CardForm().cardField(
-                                coin: "2240",
-                                rank: "10th Rank",
-                                name: "Ankit Raj Bahadur Baniya Adhakari",
-                                avatar: AppImages.avatar1),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25))),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? const Color.fromARGB(255, 83, 82, 82)
+                          : const Color.fromARGB(255, 241, 240, 240),
+                      borderRadius:  BorderRadius.only(
+                          topLeft: Radius.circular(25.r),
+                          topRight: Radius.circular(25.r))),
                 ),
               ),
             ));

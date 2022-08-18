@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mohar_version/bloc/user/user_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mohar_version/custom/form.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
@@ -59,7 +58,7 @@ class ShowDialouge {
                       style: TextStyle(color: Colors.white),
                     ))
               ],
-              backgroundColor: Colors.blueGrey[50],
+              backgroundColor: Theme.of(context).brightness == Brightness.dark? Colors.black:Colors.blueGrey[50],
               content: SizedBox(
                   width: 100,
                   child: (city == '')
@@ -69,7 +68,7 @@ class ShowDialouge {
                             Text(text),
                             TextForm().formField(
                                 label: text,
-                                icon: const Icon(Icons.edit),
+                                icon: const Icon(Icons.password),
                                 type: textContrl)
                           ],
                         )

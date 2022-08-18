@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextForm {
   Widget formField(
@@ -6,7 +7,7 @@ class TextForm {
       required Icon icon,
       required TextEditingController type}) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+      padding:  EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w),
       child: TextFormField(
         controller: type,
         validator: (input) {
@@ -18,14 +19,14 @@ class TextForm {
         textCapitalization: TextCapitalization.words,
         textAlign: TextAlign.left,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: const BorderSide(color: Colors.grey,width: 1)),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: const BorderSide(color: Colors.grey)),
+          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r),borderSide: const BorderSide(color: Colors.grey,width: 1)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.r),borderSide: const BorderSide(color: Colors.grey)),
           hintText: label,
 
           focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide( color: Colors.blue),
               borderRadius: BorderRadius.circular(
-                10,
+                10.r,
               )),
           prefixIcon: icon,
         ),
@@ -40,7 +41,7 @@ class TextForm {
       required bool obscure,
       Widget? password}) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5, left: 5, right: 5),
+      padding:  EdgeInsets.only(top: 5.h, left: 5.w, right: 5.w),
       child: TextFormField(
         obscureText: obscure,
         controller: type,
@@ -56,12 +57,12 @@ class TextForm {
            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: const BorderSide(color: Colors.grey)),
             enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(width: 1, color: Colors.grey),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10.r)),
             labelText: label,
             focusedBorder: OutlineInputBorder(
                 borderSide: const BorderSide(width: 1, color: Colors.blue),
                 borderRadius: BorderRadius.circular(
-                  10,
+                  10.r,
                 )),
             prefixIcon: icon,
             suffixIcon: password),

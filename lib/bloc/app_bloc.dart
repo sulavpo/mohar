@@ -5,9 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mohar_version/custom/toast.dart';
-import 'package:mohar_version/models/data_model.dart';
+// import 'package:mohar_version/models/data_model.dart';
 import 'package:mohar_version/pages/google_signin.dart';
-import 'package:mohar_version/pages/home_page.dart';
+// import 'package:mohar_version/pages/home_page.dart';
 import 'package:mohar_version/pages/login_page.dart';
 
 part 'app_event.dart';
@@ -22,15 +22,17 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   }
 
   AppBloc() : super(MoharInitialState()) {
-    on<LoginEvent>((event, emit) {
+    on<LoginEvent>((event, emit) async {
       emit(MoharLoadingState());
-      FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: event.email, password: event.password)
           .then((value) {
-        emit(MoharLoggedinState());
-      }).onError((error, stackTrace) {
-        Toasts.showToast("Invalid Email/Password", Colors.red);
+        if (value != null) {
+          emit(MoharLoggedinState());
+        } else {
+          emit(MoharLoggedinFailedState());
+        }
       });
     });
     on<InitialEvent>(((event, emit) {
@@ -42,9 +44,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         emit(MoharLoggedinState());
       }
     }));
-    on<LogoutEvent>(((event, emit) {
-      GoogleSignIn().disconnect();
-      FirebaseAuth.instance.signOut();
+    on<LogoutEvent>(((event, emit) async {
+      await GoogleSignIn().disconnect();
+      await FirebaseAuth.instance.signOut();
       emit(MoharNotLoggedinState());
     }));
     on<GoogleEvent>(((event, emit) async {

@@ -64,25 +64,26 @@ class LogoPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            width: 50,
-            height: 50,
+    return Column(
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(50),
+            onTap: onTap,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SvgPicture.asset(iconName,height: 10,width: 10,),
             ),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: color),
           ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(title),
-          )
-        ],
-      ),
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(title),
+        )
+      ],
     );
   }
 }

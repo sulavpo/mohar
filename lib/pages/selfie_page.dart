@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mohar_version/Constants/image.dart';
@@ -60,7 +61,7 @@ class _SelfieClickState extends State<SelfieClick> {
   }
 
   bool agree = false;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   Future<void> addUser(Data data, String uid) async {
@@ -119,11 +120,11 @@ class _SelfieClickState extends State<SelfieClick> {
     return BlocListener<AppBloc, AppState>(
       listener: (context, state) {
         if (state is MoharLoggedinState) {
-          Navigator.pop(context);
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         body: SafeArea(
             child: Stack(
           children: [
@@ -131,7 +132,7 @@ class _SelfieClickState extends State<SelfieClick> {
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 20.0, right: 20, top: 25),
+                       EdgeInsets.only(left: 20.0.w, right: 20.w, top: 25.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -141,9 +142,12 @@ class _SelfieClickState extends State<SelfieClick> {
                               Navigator.pop(context);
                             });
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.arrow_back,
-                            color: Colors.black,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black,
                           )),
                       const Text(
                         '3/3',
@@ -153,28 +157,28 @@ class _SelfieClickState extends State<SelfieClick> {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 45, top: 10),
+                 Padding(
+                  padding: EdgeInsets.only(right: 45.w, top: 10.h),
                   child: Text('Verify Your Identity',
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold)),
                 ),
                 SvgPicture.asset(
                   AppImages.id,
-                  width: 200,
-                  height: 200,
+                  width: 200.w,
+                  height: 200.h,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 80, right: 80),
+                  padding:  EdgeInsets.only(left: 80.w, right: 80.h),
                   child: Container(
-                    child: const Text(
+                    child:  Text(
                         '\tA Picture of the document and your selfie will be checked',
-                        style: TextStyle(fontSize: 14),
+                        style: TextStyle(fontSize: 14.sp),
                         textAlign: TextAlign.left),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0, left: 20),
+                  padding:  EdgeInsets.only(top: 20.0.h, left: 20.w),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -195,13 +199,17 @@ class _SelfieClickState extends State<SelfieClick> {
                           text: TextSpan(
                               text:
                                   "By agree and confirm to have read and accepted \nthe ",
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 12),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 12.sp),
                               children: <TextSpan>[
                                 TextSpan(
                                     text: "T&Cs and data policy",
-                                    style: const TextStyle(
-                                        color: Colors.blue, fontSize: 12),
+                                    style:  TextStyle(
+                                        color: Colors.blue, fontSize: 12.sp),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
                                         DialougeForm()
@@ -212,14 +220,14 @@ class _SelfieClickState extends State<SelfieClick> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
+                  padding:  EdgeInsets.fromLTRB(40.w, 10.h, 40.w, 0.h),
                   child: ElevatedButton(
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
-                              const EdgeInsets.all(10)),
+                               EdgeInsets.all(10.sp)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(10.r)),
                           ),
                           backgroundColor: MaterialStateProperty.all(
                               const Color.fromRGBO(76, 175, 80, 1))),
@@ -228,21 +236,21 @@ class _SelfieClickState extends State<SelfieClick> {
                           _showDialog();
                         });
                       }),
-                      child: const Center(
+                      child:  Center(
                           child: Text(
                         'Take A selfie',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15.sp),
                       ))),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 0),
+                  padding:  EdgeInsets.fromLTRB(40.w, 10.h, 40.w, 0.h),
                   child: ElevatedButton(
                       style: ButtonStyle(
                           padding: MaterialStateProperty.all(
-                              const EdgeInsets.all(10)),
+                               EdgeInsets.all(10.sp)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                                borderRadius: BorderRadius.circular(10.r)),
                           ),
                           backgroundColor: MaterialStateProperty.all(
                               const Color.fromARGB(255, 87, 151, 203))),
@@ -278,33 +286,34 @@ class _SelfieClickState extends State<SelfieClick> {
                                 widget.ar.back!,
                                 widget.ar.password!,
                                 images[0].imageUrl,
-                                null));
+                                null,
+                                0,
+                                0));
                           } else {
                             Toasts.showToast(
                                 "Select I agree to continue", Colors.blue);
                           }
                         }
                       }),
-                      child: const Center(
+                      child:  Center(
                           child: Text(
                         'Finish',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15.sp),
                       ))),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(28.0),
+                  padding:  EdgeInsets.all(28.0.sp),
                   child: Container(
-                    height: 70,
-                    width: 70,
+                    height: 70.h,
+                    width: 70.w,
                     decoration: BoxDecoration(
                         image: (pickedImage3 != null)
                             ? DecorationImage(
                                 fit: BoxFit.cover,
-                                image:
-                                    FileImage(pickedImage3!) as ImageProvider)
+                                image: FileImage(pickedImage3!))
                             : null,
                         color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(20.r)),
                   ),
                 ),
               ],
@@ -315,7 +324,7 @@ class _SelfieClickState extends State<SelfieClick> {
                     color: Colors.black.withOpacity(0.4),
                     child: Center(
                         child: Container(
-                            padding: const EdgeInsets.all(40),
+                            padding:  EdgeInsets.all(40.sp),
                             color: Colors.white,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -338,41 +347,40 @@ class _SelfieClickState extends State<SelfieClick> {
         builder: (context) {
           return StatefulBuilder(builder: (context, setState) {
             return AlertDialog(
-              backgroundColor: Colors.white,
               content: SizedBox(
                 child: Column(children: [
-                  const Text(
+                   Text(
                     'Smile You are on camera',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                    padding:  EdgeInsets.only(top: 20.0.h),
                     child: Container(
-                      height: 150,
-                      width: 150,
+                      height: 150.h,
+                      width: 150.w,
                       decoration: BoxDecoration(
                           image: (pickedImage3 != null)
                               ? DecorationImage(
                                   fit: BoxFit.cover,
-                                  image:
-                                      FileImage(pickedImage3!) as ImageProvider)
+                                  image: FileImage(pickedImage3!))
                               : null,
                           color: Colors.grey.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(20.r)),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    padding:  EdgeInsets.fromLTRB(0.w, 20.h, 0.w, 0.h),
                     child: ElevatedButton(
                         style: ButtonStyle(
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.only(left: 60, right: 60)),
+                                 EdgeInsets.only(left: 60.w, right: 60.w)),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10.r)),
                             ),
                             backgroundColor: MaterialStateProperty.all(
-                                const Color.fromARGB(255, 87, 151, 203))),
+                                const Color.fromARGB(2550, 870, 1510, 2030))),
                         onPressed: (() async {
                           pickedXfile3 = await _pickImage(ImageSource.camera);
                           if (pickedXfile3 != null) {
@@ -381,20 +389,20 @@ class _SelfieClickState extends State<SelfieClick> {
                             });
                           }
                         }),
-                        child: const Text(
+                        child:  Text(
                           'Touch to Click',
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15.sp),
                         )),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    padding:  EdgeInsets.fromLTRB(0.w, 5.h, 0.w, 0.h),
                     child: ElevatedButton(
                         style: ButtonStyle(
                             padding: MaterialStateProperty.all(
-                                const EdgeInsets.only(left: 85, right: 85)),
+                                 EdgeInsets.only(left: 85.w, right: 85.w)),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10.r)),
                             ),
                             backgroundColor: MaterialStateProperty.all(
                                 const Color.fromRGBO(76, 175, 80, 1))),
@@ -406,9 +414,9 @@ class _SelfieClickState extends State<SelfieClick> {
                             });
                           }
                         }),
-                        child: const Text(
+                        child:  Text(
                           'Retake',
-                          style: TextStyle(fontSize: 15),
+                          style: TextStyle(fontSize: 15.sp),
                         )),
                   ),
                   InkWell(
@@ -423,8 +431,8 @@ class _SelfieClickState extends State<SelfieClick> {
                     ),
                   )
                 ]),
-                height: 350,
-                width: 50,
+                height: 350.h,
+                width: 50.w,
               ),
             );
           });
