@@ -8,6 +8,7 @@ import 'package:mohar_version/animation/home_animation.dart';
 import 'package:mohar_version/bloc/app_bloc.dart';
 import 'package:mohar_version/bloc/theme/theme_bloc.dart';
 import 'package:mohar_version/custom/dialouge.dart';
+import 'package:mohar_version/custom/toast.dart';
 import 'package:mohar_version/custom/update_dialouge.dart';
 import 'package:mohar_version/models/data_model.dart';
 import 'package:mohar_version/pages/login_page.dart';
@@ -36,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen>
       listener: (context, state) {
         if (state is MoharNotLoggedinState) {
           Navigator.pushReplacementNamed(context, LoginPage.routeName);
+          Toasts.showToast('Logout Sucessfull', Colors.green);
         }
       },
       child: Scaffold(

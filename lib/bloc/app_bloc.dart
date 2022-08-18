@@ -24,16 +24,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc() : super(MoharInitialState()) {
     on<LoginEvent>((event, emit) async {
       emit(MoharLoadingState());
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: event.email, password: event.password)
-          .then((value) {
-        if (value != null) {
-          emit(MoharLoggedinState());
-        } else {
-          emit(MoharLoggedinFailedState());
-        }
-      });
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: event.email, password: event.password);
+        emit(MoharLoggedinState());
+      } catch (e) {
+        emit(MoharLoggedinFailedState());
+      }
     });
     on<InitialEvent>(((event, emit) {
       FirebaseAuth _auth = FirebaseAuth.instance;
@@ -45,9 +42,12 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       }
     }));
     on<LogoutEvent>(((event, emit) async {
-      await GoogleSignIn().disconnect();
-      await FirebaseAuth.instance.signOut();
-      emit(MoharNotLoggedinState());
+      try {
+        await GoogleSignIn().disconnect();
+        await FirebaseAuth.instance.signOut();
+      } catch (e) {
+        emit(MoharNotLoggedinState());
+      }
     }));
     on<GoogleEvent>(((event, emit) async {
       final user = await GoogleSignIn().signIn();

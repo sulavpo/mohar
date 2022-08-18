@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   Data? recieveData;
   bool showData = false;
-  bool hasData = false;
+  bool hasData = true;
   Future<String> getJsonFromFirebaseAPI() async {
     String url =
         "https://mohar-dae91-default-rtdb.asia-southeast1.firebasedatabase.app//users.json";
@@ -55,17 +55,17 @@ class _HomePageState extends State<HomePage> {
         ),
         ProfilePage(receivedData: aa)
       ];
-  getData() async {
-    await getJsonFromFirebaseAPI();
-    selectedIndex = 0;
-    setState(() {
-      hasData = true;
-    });
-  }
+  // getData() async {
+  //   await getJsonFromFirebaseAPI();
+  //   selectedIndex = 0;
+  //   setState(() {
+  //     hasData = true;
+  //   });
+  // }
 
   @override
   void initState() {
-    getData();
+    // getData();
     super.initState();
   }
 
@@ -88,36 +88,34 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _bottomNavigationKey,
       extendBody: true,
-      body: !hasData
-          ? const Center(child: CircularProgressIndicator())
-          : StreamBuilder(
-              stream: FirebaseDatabase.instance.ref("users/$uid").onValue,
-              //initialData: 0,
+      body: StreamBuilder(
+          stream: FirebaseDatabase.instance.ref("users/$uid").onValue,
+          //initialData: 0,
 
-              builder: (
-                BuildContext context,
-                AsyncSnapshot<DatabaseEvent> snapshot,
-              ) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: Text('waiting'));
-                } else if (snapshot.connectionState == ConnectionState.active ||
-                    snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    recieveData = Data.fromDatabaseEvent(snapshot.data!);
+          builder: (
+            BuildContext context,
+            AsyncSnapshot<DatabaseEvent> snapshot,
+          ) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: Text('waiting'));
+            } else if (snapshot.connectionState == ConnectionState.active ||
+                snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                recieveData = Data.fromDatabaseEvent(snapshot.data!);
 
-                    return PageView(
-                      physics: const NeverScrollableScrollPhysics(),
-                      controller: _pageController,
-                      children: screen(recieveData!),
-                      onPageChanged: (index) {
-                        selectedIndex = index;
-                      },
-                    );
-                  }
-                }
-                return const Center(
-                    child: Text('Kina bigriyo malai ni thaha chaina'));
-              }),
+                return PageView(
+                  physics: const NeverScrollableScrollPhysics(),
+                  controller: _pageController,
+                  children: screen(recieveData!),
+                  onPageChanged: (index) {
+                    selectedIndex = index;
+                  },
+                );
+              }
+            }
+            return const Center(
+                child: Text('Kina bigriyo malai ni thaha chaina'));
+          }),
       bottomNavigationBar: CurvedNavigationBar(
         index: selectedIndex,
         color: const Color.fromRGBO(224, 224, 224, 1),
