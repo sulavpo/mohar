@@ -46,7 +46,7 @@ class _LandingScreenState extends State<LandingScreen>
     return Scaffold(
       body: Stack(children: [
         Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding:  EdgeInsets.all(3.0.sp),
           child: Container(
             child: SafeArea(
                 child: Column(
@@ -148,7 +148,7 @@ class _LandingScreenState extends State<LandingScreen>
                               width: 320.w,
                               decoration: BoxDecoration(
                                   color: Colors.red.withOpacity(0.6),
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(20.r)),
                             ),
                           );
                         },
@@ -211,7 +211,7 @@ class _LandingScreenState extends State<LandingScreen>
                                         builder: (context, value, _) =>
                                             CircularProgressIndicator.adaptive(
                                           value: value,
-                                          strokeWidth: 10,
+                                          strokeWidth: 15,
                                           backgroundColor: Colors.red,
                                         ),
                                       ),
@@ -219,7 +219,7 @@ class _LandingScreenState extends State<LandingScreen>
                                   ),
                                   Center(
                                     child: Text(
-                                      "${(widget.receivedData!.balance / 2000) * 100}%",
+                                      "${((widget.receivedData!.balance / 2000) * 100).toStringAsPrecision(3)}%",
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   )
@@ -241,7 +241,7 @@ class _LandingScreenState extends State<LandingScreen>
                   ),
                 ),
                 Padding(
-                  padding:  EdgeInsets.only(left: 10.0.w, right: 10.0.w),
+                  padding:  EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: SizedBox(
                     height: 100.h,
                     child: ListView.builder(
@@ -250,7 +250,7 @@ class _LandingScreenState extends State<LandingScreen>
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding:  EdgeInsets.all(8.0.sp),
                             child: LogoPart(
                                 title: withDrawList[index].title,
                                 iconName: withDrawList[index].iconName,
@@ -270,7 +270,7 @@ class _LandingScreenState extends State<LandingScreen>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                      Padding(
-                      padding: EdgeInsets.only(left: 15.0.w, top: 0.h),
+                      padding: EdgeInsets.only(left: 15.0.w),
                       child: Text(
                         "Categories",
                         style: TextStyle(
@@ -278,7 +278,7 @@ class _LandingScreenState extends State<LandingScreen>
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 15.0.w, top: 0.h),
+                      padding: EdgeInsets.only(right: 15.0.w),
                       child: Text(
                         "see all",
                         style: TextStyle(color: Colors.grey[500]),
@@ -287,7 +287,7 @@ class _LandingScreenState extends State<LandingScreen>
                   ],
                 ),
                 Padding(
-                  padding:  EdgeInsets.only(left: 10.0.w, right: 10.0.w),
+                  padding:  EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: SizedBox(
                     height: 150.h,
                     child: ListView.builder(
