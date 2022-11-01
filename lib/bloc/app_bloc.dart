@@ -4,7 +4,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mohar_version/custom/toast.dart';
 // import 'package:mohar_version/models/data_model.dart';
 import 'package:mohar_version/pages/google_signin.dart';
 // import 'package:mohar_version/pages/home_page.dart';

@@ -177,7 +177,7 @@ class _NextPageState extends State<NextPage> {
                           color:
                               Theme.of(context).brightness == Brightness.dark
                                   ? Colors.white
-                                  : Color.fromARGB(255, 23, 23, 23),
+                                  : const Color.fromARGB(255, 23, 23, 23),
                         ),
                       ),
                     ),
@@ -188,7 +188,7 @@ class _NextPageState extends State<NextPage> {
                           color:
                               Theme.of(context).brightness == Brightness.dark
                                   ? Colors.white
-                                  : Color.fromARGB(255, 23, 23, 23),
+                                  : const Color.fromARGB(255, 23, 23, 23),
                         ),
                       ),
                       leading: Radio<SingingCharacter>(
@@ -208,7 +208,7 @@ class _NextPageState extends State<NextPage> {
                           color:
                               Theme.of(context).brightness == Brightness.dark
                                   ? Colors.white
-                                  : Color.fromARGB(255, 23, 23, 23),
+                                  : const Color.fromARGB(255, 23, 23, 23),
                         ),
                       ),
                       leading: Radio<SingingCharacter>(
@@ -228,7 +228,7 @@ class _NextPageState extends State<NextPage> {
                             color: Theme.of(context).brightness ==
                                     Brightness.dark
                                 ? Colors.white
-                                : Color.fromARGB(255, 23, 23, 23)),
+                                : const Color.fromARGB(255, 23, 23, 23)),
                       ),
                       leading: Radio<SingingCharacter>(
                         value: SingingCharacter.other,
@@ -270,14 +270,14 @@ class _NextPageState extends State<NextPage> {
                                       color: Theme.of(context).brightness ==
                                               Brightness.dark
                                           ? Colors.white
-                                          : Color.fromARGB(255, 23, 23, 23),
+                                          : const Color.fromARGB(255, 23, 23, 23),
                                     ),
                                   ),
                                   icon: Icon(
                                     Icons.arrow_drop_down,
                                     color: Theme.of(context).brightness ==
                                             Brightness.dark
-                                        ? Color.fromARGB(255, 23, 23, 23)
+                                        ? const Color.fromARGB(255, 23, 23, 23)
                                         : Colors.white,
                                   ),
                                   items: documentItems
@@ -299,6 +299,7 @@ class _NextPageState extends State<NextPage> {
                                     if (value == null) {
                                       return 'Please select document type.';
                                     }
+                                    return null;
                                   },
                                   onSaved: (value) {
                                     selectedValue = value.toString();
@@ -453,11 +454,11 @@ class _NextPageState extends State<NextPage> {
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 60.w),
-                          child: Text("Front View"),
+                          child: const Text("Front View"),
                         ),
                         Padding(
                           padding: EdgeInsets.only(left: 120.w),
-                          child: Text("Back View"),
+                          child: const Text("Back View"),
                         )
                       ],
                     ),

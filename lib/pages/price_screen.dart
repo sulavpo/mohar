@@ -17,7 +17,7 @@ class _PriceScreenState extends State<PriceScreen> {
       backgroundColor: Colors.brown,
       body: Center(
         child: Animate(
-            effects: [
+            effects: const [
               FadeEffect(),
               ScaleEffect()
             ],

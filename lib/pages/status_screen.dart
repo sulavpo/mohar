@@ -1,6 +1,4 @@
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/gestures.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +8,6 @@ import 'package:mohar_version/custom/date_picker.dart';
 import 'package:mohar_version/custom/line_tile.dart';
 import 'package:mohar_version/custom/pie_chart.dart';
 import 'package:mohar_version/models/data_model.dart';
-import 'package:zoom_widget/zoom_widget.dart';
 
 
 class StatusScreen extends StatefulWidget {
@@ -46,7 +43,7 @@ class _StatusScreenState extends State<StatusScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Theme.of(context).brightness == Brightness.dark
-              ? Color.fromARGB(255, 23, 23, 23)
+              ? const Color.fromARGB(255, 23, 23, 23)
               : Colors.white,
           title: Text(
             "My Activity",
@@ -105,7 +102,7 @@ class _StatusScreenState extends State<StatusScreen> {
                           shape: BoxShape.circle,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.black
-                              : Color.fromARGB(255, 246, 243, 243),
+                              : const Color.fromARGB(255, 246, 243, 243),
 
                           //Color.fromARGB(255, 246, 243, 243)
                         ),
@@ -140,7 +137,7 @@ class _StatusScreenState extends State<StatusScreen> {
           slivers: [
             SliverAppBar(
               backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Color.fromARGB(255, 23, 23, 23)
+                  ? const Color.fromARGB(255, 23, 23, 23)
                   : Colors.white,
               pinned: true,
               automaticallyImplyLeading: false,
@@ -168,7 +165,7 @@ class _StatusScreenState extends State<StatusScreen> {
                           borderData: FlBorderData(
                               show: true,
                               border: Border.all(
-                                  color: Color.fromARGB(255, 202, 221, 241),
+                                  color: const Color.fromARGB(255, 202, 221, 241),
                                   width: 1)),
                           lineBarsData: [
                             LineChartBarData(
@@ -198,13 +195,13 @@ class _StatusScreenState extends State<StatusScreen> {
                     ),
                 ),
                     Positioned(bottom: 15.h,
-                      right:20.w,child: SizedBox(height: 20.h,child: PickDate())),
+                      right:20.w,child: SizedBox(height: 20.h,child: const PickDate())),
                 ],
               ),
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(((context, index) {
-                return Container(
+                return SizedBox(
                     height: 570.h,
                     // color: Colors.green,
                     child: Stack(
@@ -247,7 +244,7 @@ class _StatusScreenState extends State<StatusScreen> {
                               ),
                               Padding(
                                 padding:  EdgeInsets.fromLTRB(0.w, 0.h, 0.w, 0.h),
-                                child: PieChartSample3(),
+                                child: const PieChartSample3(),
                               ),
                               CardRow("Plastic", const Color(0xfff8b250)),
                               CardRow("Eco-Brick", const Color(0xff845bef)),

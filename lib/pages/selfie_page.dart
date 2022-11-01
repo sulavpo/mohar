@@ -84,7 +84,7 @@ class _SelfieClickState extends State<SelfieClick> {
     DatabaseReference ref = FirebaseDatabase.instance.ref("users/$uid");
     return await ref.set(data.toMap()).then((value) {
       print("User also Added to RealTime Database");
-      BlocProvider.of<AppBloc>(context)..add(RegisterEvent());
+      BlocProvider.of<AppBloc>(context).add(RegisterEvent());
     }).catchError((error) => print("Failed to add user: $error"));
   }
 
@@ -101,7 +101,7 @@ class _SelfieClickState extends State<SelfieClick> {
         });
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("${e.code}")));
+            .showSnackBar(SnackBar(content: Text(e.code)));
       }
     } else {
       try {
@@ -110,7 +110,7 @@ class _SelfieClickState extends State<SelfieClick> {
         addReal(data, uid);
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("${e.code}")));
+            .showSnackBar(SnackBar(content: Text(e.code)));
       }
     }
   }

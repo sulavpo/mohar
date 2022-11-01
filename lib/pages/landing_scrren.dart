@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'dart:math' as math;
 // import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mohar_version/Constants/image.dart';
 import 'package:mohar_version/custom/bottomsheet.dart';
 import 'package:mohar_version/custom/card.dart';
 import 'package:mohar_version/models/data_model.dart';
@@ -69,7 +68,7 @@ class _LandingScreenState extends State<LandingScreen>
                                 )),
                             height: 40.h,
                             width: 40.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               // color: Colors.red.withOpacity(0.3),
                             )),
@@ -91,7 +90,7 @@ class _LandingScreenState extends State<LandingScreen>
                            Positioned(
                             left: 60.w,
                             top: 10.h,
-                            child: Center(child: FaIcon(FontAwesomeIcons.bell)),
+                            child: const Center(child: FaIcon(FontAwesomeIcons.bell)),
                           ),
                           Positioned(
                               right: 30.w,
@@ -104,7 +103,7 @@ class _LandingScreenState extends State<LandingScreen>
                                   color: Theme.of(context).brightness ==
                                           Brightness.dark
                                       ? Colors.black
-                                      : Color.fromARGB(255, 246, 243, 243),
+                                      : const Color.fromARGB(255, 246, 243, 243),
                                   //Color.fromARGB(255, 246, 243, 243)
                                 ),
                               )),
@@ -220,7 +219,7 @@ class _LandingScreenState extends State<LandingScreen>
                                   Center(
                                     child: Text(
                                       "${((widget.receivedData!.balance / 2000) * 100).toStringAsPrecision(3)}%",
-                                      style: TextStyle(color: Colors.white),
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                   )
                                 ],
@@ -231,7 +230,7 @@ class _LandingScreenState extends State<LandingScreen>
                         decoration: BoxDecoration(
                             color:
                                 Theme.of(context).brightness == Brightness.dark
-                                    ? Color.fromRGBO(71, 71, 71, 1)
+                                    ? const Color.fromRGBO(71, 71, 71, 1)
                                     : Colors.black,
                             borderRadius: BorderRadius.circular(20.r)),
                         height: 150,
@@ -370,7 +369,7 @@ class _LandingScreenState extends State<LandingScreen>
                   ),
                    Padding(
                     padding: EdgeInsets.only(right: 150.0.w, top: 30.h, bottom: 5.h),
-                    child: Text(
+                    child: const Text(
                       "Highest Contributor",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -385,8 +384,8 @@ class _LandingScreenState extends State<LandingScreen>
               ),
               decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
-                      ? Color.fromARGB(255, 83, 82, 82)
-                      : Color.fromARGB(255, 241, 240, 240),
+                      ? const Color.fromARGB(255, 83, 82, 82)
+                      : const Color.fromARGB(255, 241, 240, 240),
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(35.r),
                       topRight: Radius.circular(35.r))),

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                 theme: state.isDark ? darkTheme : lightTheme,
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: RouteHandler.generateRoute,
-                home: InitPage(),
+                home: const InitPage(),
               );
             },
           );

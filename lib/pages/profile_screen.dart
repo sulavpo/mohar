@@ -4,10 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mohar_version/Constants/image.dart';
-import 'package:mohar_version/animation/home_animation.dart';
 import 'package:mohar_version/bloc/app_bloc.dart';
 import 'package:mohar_version/bloc/theme/theme_bloc.dart';
-import 'package:mohar_version/custom/dialouge.dart';
 import 'package:mohar_version/custom/toast.dart';
 import 'package:mohar_version/custom/update_dialouge.dart';
 import 'package:mohar_version/models/data_model.dart';
@@ -49,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             AppBar(
               elevation: 0,
               backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Color.fromARGB(255, 23, 23, 23)
+                  ? const Color.fromARGB(255, 23, 23, 23)
                   : Colors.white,
               title: Text(
                 "Profile",
@@ -112,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               color: Theme.of(context).brightness ==
                                       Brightness.dark
                                   ? Colors.black
-                                  : Color.fromARGB(255, 246, 243, 243),
+                                  : const Color.fromARGB(255, 246, 243, 243),
 
                               //Color.fromARGB(255, 246, 243, 243)
                             ),
@@ -191,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                       ),
                       Padding(
                         padding: EdgeInsets.only(left: 15.0.w, top: 3.h),
-                        child: Text(
+                        child: const Text(
                           "View Profile",
                           style: TextStyle(
                               color: Color.fromRGBO(76, 175, 152, 1),
@@ -225,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 22.0.h),
-                            child: Text(
+                            child: const Text(
                               "Points",
                               style: TextStyle(
                                   color: Color.fromRGBO(158, 158, 158, 1),
@@ -269,7 +267,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                               Padding(
                                 padding:
                                     EdgeInsets.only(top: 22.0.h, left: 30.w),
-                                child: Text(
+                                child: const Text(
                                   "Rank",
                                   style: TextStyle(
                                       color: Color.fromRGBO(158, 158, 158, 1),
@@ -294,7 +292,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: 30.0.h),
-                            child: Text(
+                            child: const Text(
                               "2k",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
@@ -302,7 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 22.0.h),
-                            child: Text(
+                            child: const Text(
                               "Withdraw",
                               style: TextStyle(
                                   color: Color.fromRGBO(158, 158, 158, 1),
@@ -332,12 +330,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                   shrinkWrap: true,
                   children: [
                     ListCard(
-                        title: Text("Basic info"),
-                        trailing: Icon(Icons.chevron_right),
+                        title: const Text("Basic info"),
+                        trailing: const Icon(Icons.chevron_right),
                         leading: Container(
                             height: 25.h,
                             width: 25.w,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.green, shape: BoxShape.circle),
                             child: SvgPicture.asset(
                               AppImages.info,
@@ -359,19 +357,19 @@ class _ProfileScreenState extends State<ProfileScreen>
                             text3: "");
                       },
                       child: ListCard(
-                          title: Text("Change Password"),
-                          trailing: Icon(Icons.chevron_right),
+                          title: const Text("Change Password"),
+                          trailing: const Icon(Icons.chevron_right),
                           leading: Container(
                               height: 25.h,
                               width: 25.w,
-                              decoration: BoxDecoration(shape: BoxShape.circle),
+                              decoration: const BoxDecoration(shape: BoxShape.circle),
                               child: SvgPicture.asset(AppImages.password,
                                   height: 50.h, width: 50.w))),
                     ),
                     ListCard(
                         title: Theme.of(context).brightness == Brightness.dark
-                            ? Text("Light Theme")
-                            : Text("Dark Theme"),
+                            ? const Text("Light Theme")
+                            : const Text("Dark Theme"),
                         trailing: BlocBuilder<ThemeBloc, ThemeState>(
                           builder: (context, state) {
                             return Switch(
@@ -387,7 +385,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                         leading: Container(
                           height: 25,
                           width: 25,
-                          decoration: BoxDecoration(shape: BoxShape.circle),
+                          decoration: const BoxDecoration(shape: BoxShape.circle),
                           child: Theme.of(context).brightness == Brightness.dark
                               ? SvgPicture.asset(AppImages.light,
                                   height: 50.h, width: 50.w)
@@ -398,21 +396,21 @@ class _ProfileScreenState extends State<ProfileScreen>
                           //     height: 50, width: 50)
                         )),
                     ListCard(
-                        title: Text("FAQs"),
-                        trailing: Icon(Icons.chevron_right),
+                        title: const Text("FAQs"),
+                        trailing: const Icon(Icons.chevron_right),
                         leading: Container(
                             height: 25.h,
                             width: 25.w,
-                            decoration: BoxDecoration(shape: BoxShape.circle),
+                            decoration: const BoxDecoration(shape: BoxShape.circle),
                             child: SvgPicture.asset(AppImages.fq,
                                 height: 50.h, width: 50.w))),
                     ListCard(
-                        title: Text("Refer and Earn"),
-                        trailing: Icon(Icons.chevron_right),
+                        title: const Text("Refer and Earn"),
+                        trailing: const Icon(Icons.chevron_right),
                         leading: Container(
                             height: 25.h,
                             width: 25.w,
-                            decoration: BoxDecoration(shape: BoxShape.circle),
+                            decoration: const BoxDecoration(shape: BoxShape.circle),
                             child: SvgPicture.asset(AppImages.share,
                                 height: 50, width: 50))),
                     InkWell(
@@ -422,11 +420,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                         // });
                       },
                       child: ListCard(
-                          title: Text("Logout"),
+                          title: const Text("Logout"),
                           leading: Container(
                               height: 25.h,
                               width: 25.w,
-                              decoration: BoxDecoration(shape: BoxShape.circle),
+                              decoration: const BoxDecoration(shape: BoxShape.circle),
                               child: SvgPicture.asset(AppImages.logout,
                                   height: 50.h, width: 50.w))),
                     ),

@@ -123,14 +123,14 @@ class _HomePageState extends State<HomePage> {
         buttonBackgroundColor: const Color.fromRGBO(224, 224, 224, 1),
         backgroundColor: Colors.transparent,
         items: [
-          Icon(Icons.home, size: 25.sp, color: Color(0xff232323)),
-          FaIcon(
+          Icon(Icons.home, size: 25.sp, color: const Color(0xff232323)),
+          const FaIcon(
             FontAwesomeIcons.newspaper,
           ),
           Icon(Icons.stacked_line_chart_sharp,
-              size: 25.sp, color: Color(0xff232323)),
+              size: 25.sp, color: const Color(0xff232323)),
           Icon(Icons.account_circle_outlined,
-              size: 25.sp, color: Color(0xff232323)),
+              size: 25.sp, color: const Color(0xff232323)),
         ],
         onTap: (index) {
           _pageController.jumpToPage(index);

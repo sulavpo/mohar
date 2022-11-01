@@ -10,7 +10,6 @@ import 'package:mohar_version/bloc/app_bloc.dart';
 import 'package:mohar_version/custom/form.dart';
 import 'package:mohar_version/custom/toast.dart';
 import 'package:mohar_version/pages/home_page.dart';
-import 'package:mohar_version/pages/landing_scrren.dart';
 // import 'package:mohar_version/custom/toast.dart';
 // import 'package:mohar_version/pages/google_signin.dart';
 // import 'package:mohar_version/pages/home_page.dart';
@@ -121,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding:
                       EdgeInsets.only(top: 10.0.h, bottom: 10.h, left: 200.w),
-                  child: Text(
+                  child: const Text(
                     'Forget Password?',
                     style: TextStyle(color: Colors.blue),
                   ),
